@@ -1,0 +1,16 @@
+<view class="container">
+    <view class="record-list">
+        <view class="record-item" wx:for="{{cashBackRcord}}">
+            <view class="top">
+                <view class="name">提现</view>
+                <view class="money">{{item.totalAmount}}元</view>
+            </view>
+            <view class="bottom">
+                <view class="create-time">{{item.createTime}}</view>
+                <view class="cashbask-static" style="color: {{item.dealStatus==0?'#C7A75D':item.dealStatus==1?'#a5a5a5':item.dealStatus==2?'red':''}}">
+          {{item.desc}}
+        </view>
+            </view>
+        </view>
+    </view>
+</view>

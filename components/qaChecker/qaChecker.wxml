@@ -1,0 +1,35 @@
+<view catchmove="move" style="position: fixed; z-index: 999; top: 0; left: 0; width: 100%; height: 100%;background: #d85940;">
+    <image mode="widthFix" src="../../images/home_bg.jpg" style="width: 100%;"></image>
+</view>
+<scroll-view class="checker-view" scrollY="{{true}}">
+    <view style="padding-bottom: 200rpx;padding-left: 40rpx; padding-right: 40rpx;">
+        <view class="qa-section" wx:for="{{showList}}" wx:key="{{index}}">
+            <view bindtap="doDelete" class="cancel-box" data-idx="{{index}}">删除此题</view>
+            <view class="qa-box">
+                <view class="qa-question">
+                                    {{index+1}}/{{showList.length}} {{item.question}}
+                                </view>
+                <view class="qa-options">
+                    <radio-group bindchange="radioChange" data-idx="{{index}}" wx:if="{{item.type=='normal'&&item.options.length<=4}}">
+                        <label class="radio-label" wx:for="{{item.options}}" wx:for-index="idx" wx:for-item="label">
+                            <radio checked="{{idx+1==item.answer}}" style="display: none" value="{{idx+1}}"></radio>
+                            <view class="radio-qa {{idx+1==item.answer?'radio-qa-select':''}}" style="flex: 1;">
+                                                {{label}}
+                                            </view>
+                        </label>
+                    </radio-group>
+                    <view wx:else>
+                        <view class="radio-label" wx:if="{{item.type=='normal'&&item.options.length>4}}">答案：{{item.options[item.answer]}}</view>
+                        <view class="radio-label" wx:else>答案：{{item.desc}}</view>
+                        <view bindtap="toShowChecker" class="choose-btn" data-idx="{{index}}" data-item="{{item}}">修改答案></view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</scroll-view>
+<button bindtap="bindConfirm" class="pay-button">
+    <image src="../../images/y_btn.png"></image>
+            确定
+        </button>
+<qa-picker bindconfirm="bindPickConfirm" qaItem="{{qaItem}}" showChecker="{{showChecker}}"></qa-picker>

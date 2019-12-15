@@ -1,0 +1,8 @@
+<import src="../../vendor/weCropper/weCropper.wxml"></import>
+<view class="cropper-wrapper">
+    <template is="weCropper" data="{{...cropperOpt}}"></template>
+    <view class="cropper-buttons">
+        <view bindtap="tapCancel" class="cancel-button">取消</view>
+        <view bindtap="tapFinish" class="finish-button">下一步</view>
+    </view>
+</view>

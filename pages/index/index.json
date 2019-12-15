@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "",
+    "disableScroll": true,
+    "usingComponents": {
+        "auth": "../../components/authorization/authorization"
+    }
+}

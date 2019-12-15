@@ -1,0 +1,68 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/pay/pay",
+    "pages/red/red",
+    "pages/crop/crop",
+    "pages/share/share",
+    "pages/record/record",
+    "pages/cashback/cashback",
+    "pages/help/help",
+    "pages/webview/webview",
+    "pages/report/report",
+    "pages/reportresult/reportresult",
+    "pages/makeqa/makeqa",
+    "pages/chat/chat",
+    "pages/result/result",
+    "pages/review/review",
+    "pages/wordLibrary/wordLibrary",
+    "pages/shareimg/shareimg",
+    "pages/profile/profile",
+    "pages/qaChecker/qaChecker",
+    "pages/more/more",
+    "pages/cashbackDetail/cashbackDetail"
+  ],
+  "window": {
+    "navigationStyle": "default",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#d85940",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#888888",
+    "selectedColor": "#F5535E",
+    "borderStyle": "white",
+    "backgroundColor": "#FFF4E1",
+    "list": [
+      {
+        "text": "发红包",
+        "pagePath": "pages/index/index",
+        "iconPath": "images/home_redpack_default.png",
+        "selectedIconPath": "images/home_redpack_active.png"
+      },
+      {
+        "text": "更多好玩",
+        "pagePath": "pages/more/more",
+        "iconPath": "images/more.png",
+        "selectedIconPath": "images/more_active.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/profile/profile",
+        "iconPath": "images/ic_my_normal.png",
+        "selectedIconPath": "images/ic_my_active.png"
+      }
+    ]
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wxf9e1cbcfb709e97b",
+    "wxdb0b7547991aad91",
+    "wxa72dd1b3cb56f532",
+    "wxd7c2fdc9b64cfb92",
+    "wxf58bd6aff2e0547e",
+    "wxd4c69125afec545e",
+    "wx0ade40d0bfde9bc2"
+  ],
+  "sitemapLocation": "sitemap.json"
+}

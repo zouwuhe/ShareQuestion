@@ -1,0 +1,8 @@
+<view class="content-container">
+    <icon size="100" type="success"></icon>
+    <view class="result-label">提交成功</view>
+    <view class="info">感谢您的反馈，我们坚决反对色情、暴力、欺诈等违规信息，我们会认真处理您的举报，维护绿色、健康的网络环境。</view>
+    <view class="btn-area">
+        <button bindtap="confirm" class="btn" type="primary">确定</button>
+    </view>
+</view>

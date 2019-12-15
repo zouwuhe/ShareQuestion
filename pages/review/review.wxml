@@ -1,0 +1,48 @@
+<view class="container" hidden="{{hideContainer}}">
+    <view class="header" wx:if="{{grabber.avatar||showTips}}">
+        <view class="info-container" wx:if="{{grabber.avatar}}">
+            <image class="logo-avatar" mode="aspectFill" src="{{grabber.avatar}}"></image>
+            <text class="logo-nickName">{{grabber.nickName}}的答题记录</text>
+        </view>
+        <view class="top-tips" wx:if="{{showTips}}">{{showTips}}</view>
+    </view>
+    <scroll-view scrollY="true" style="padding-bottom:{{ifIphoneX?'228rpx':'164rpx'}};margin-top: {{grabber.avatar?showTips?172:100:showTips?72:0}}rpx">
+        <view class="question-style">
+            <view class="question-container" wx:for="{{qaList}}">
+                <text class="question-title">{{index+1}}.{{item.question}}</text>
+                <text class="question-selectAn" wx:if="{{item.selectAnswer}}">{{creator==1?'Ta':'我'}}的回答：{{item.selectAnswer}}</text>
+                <text class="question-selectAn" wx:if="{{item.answer}}">正确答案：{{item.answer}}</text>
+            </view>
+        </view>
+    </scroll-view>
+    <view class="back-pay" style="padding-bottom: {{ifIphoneX?'40rpx':'0'}}">
+        <button bindtap="bindback" class="pay" wx:if="{{!formType&&canViewAnswer!=0}}">
+            <image src="../../images/home_btn.png"></image>
+            {{navigateType==='navigate'?'使用此套问题发红包':'返回'}}
+        </button>
+        <button bindtap="bindback" class="pay" wx:if="{{canViewAnswer==0}}">
+            <image src="../../images/home_btn.png"></image>
+            {{navigateType==='navigate'?'使用此套问题发红包':'返回'}}
+        </button>
+        <view bindtap="bindback" class="pay-button" wx:if="{{formType&&canViewAnswer!=0}}">
+            返回
+        </view>
+    </view>
+    <view wx:if="{{showPayModal}}">
+        <view bindtap="bindClosePayModal" class="weui-flex mask">
+            <view catchtap="bindtap" class="pay-modal-container">
+                <image catchtap="bindClosePayModal" class="pay-modal-close" src="../../images/close_gold.png"></image>
+                <view class="pay-modal-content">
+                    <form bindsubmit="bindPay" reportSubmit="true">
+                        <view style="color: #fde1b1;">
+                            <text class="amount-text">{{amount}}</text>
+                            <text class="amount-unit">元</text>
+                        </view>
+                        <view class="pay-modal-content__info">发红包看答案，金额随机</view>
+                        <button class="pay-modal-content__pay" formType="submit">发红包</button>
+                    </form>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

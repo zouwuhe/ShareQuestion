@@ -1,0 +1,25 @@
+.content-container {
+    padding-top: 100rpx;
+    text-align: center;
+}
+
+.result-label {
+    padding: 48rpx 32rpx 0 32rpx;
+    font-size: 32rpx;
+    text-align: center;
+}
+
+.info {
+    padding: 32rpx 32rpx 0 32rpx;
+    font-size: 28rpx;
+    color: #999;
+    text-align: center;
+}
+
+.btn-area {
+    padding: 48rpx 32rpx 0 32rpx;
+}
+
+.btn {
+    font-size: 32rpx;
+}

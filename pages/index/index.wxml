@@ -1,0 +1,40 @@
+<image mode="widthFix" src="../../images/home_bg.jpg" style="width: 100%;position: absolute;top: 0;z-index: -1"></image>
+<view class="start-box">
+    <image class="bg" src="../../images/board_home.png"></image>
+    <view class="avatar-box">
+        <open-data class="start-avatar" style="overflow: hidden;" type="userAvatarUrl" wx:if="{{needAuth}}"></open-data>
+        <image class="start-avatar" src="{{avatarUrl}}" wx:else></image>
+    </view>
+    <view class="tips-box">
+        <view class="user-name">嗨！
+        <open-data type="userNickName" wx:if="{{needAuth}}"></open-data>
+            <text wx:else>{{nickName}}</text>
+        </view>
+        <view class="an-tip">出几道关于你的问题，好友答对才能领红包</view>
+    </view>
+    <view class="param-container">
+        <view class="param-box">
+            <view class="param-item count">
+                <view>题目数量</view>
+                <view>{{qaNum}}题</view>
+            </view>
+            <view class="param-item" style="margin-top: 14rpx;">
+                <view class="slide-text">5</view>
+                <slider activeColor="#B97215" backgroundColor="#D3AB5F" bindchange="qaNumChange" bindchanging="qaNumChange" blockColor="#D95940" max="10" min="5" style="flex: 1" value="{{qaNum}}"></slider>
+                <view class="slide-text">10</view>
+            </view>
+        </view>
+    </view>
+    <image class="home-line" src="../../images/home_line.png"></image>
+    <button bindgetuserinfo="bindgetuserinfo" class="start-btn" openType="getUserInfo" wx:if="{{needAuth}}">
+        <image src="../../images/home_btn.png"></image>
+        <text>去出题</text>
+    </button>
+    <button bindtap="toQA" class="start-btn" wx:if="{{!needAuth}}">
+        <image src="../../images/home_btn.png"></image>
+        <text>去出题</text>
+    </button>
+</view>
+<button bindtap="bindContact" class="my-record" openType="contact" sessionFrom="{{subscribeSession}}">
+    联系客服
+</button>

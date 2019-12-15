@@ -1,0 +1,76 @@
+.weui-cells {
+    margin-top: 0;
+}
+
+.weui-cells:before {
+    height: 0;
+}
+
+.weui-cell__bd {
+    font-size: 28rpx;
+}
+
+.weui-cell:before {
+    left: 0;
+}
+
+.cell {
+    background-color: white;
+    padding: 10px 15rpx;
+    border-radius: 4rpx;
+}
+
+.title {
+    font-size: 30rpx;
+    color: #333;
+}
+
+.content {
+    border-top: 1rpx solid #d9d9d9;
+    background-color: white;
+    padding: 10px 30rpx;
+    font-size: 28rpx;
+    color: #333;
+}
+
+.detail {
+    width: 44rpx;
+    height: 44rpx;
+}
+
+.box {
+    box-shadow: 5rpx 5rpx 10rpx #999;
+}
+
+.report-icon {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 24rpx;
+    height: 24rpx;
+}
+
+.report-text {
+    display: inline-block;
+    vertical-align: bottom;
+    height: 24rpx;
+    line-height: 24rpx;
+    font-size: 24rpx;
+    color: #999;
+    margin-left: 4rpx;
+}
+
+.report-link {
+    margin-top: 16rpx;
+    padding: 12rpx 0 20rpx 0;
+    text-align: center;
+    color: #586c94;
+    font-size: 28rpx;
+}
+
+.foot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30rpx;
+    padding-top: 70rpx;
+}

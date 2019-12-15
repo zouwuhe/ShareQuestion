@@ -1,0 +1,269 @@
+.invalidHint {
+    z-index: 1000;
+    position: absolute;
+    top: 174rpx;
+    left: 78rpx;
+    right: 78rpx;
+    background-color: #ea5f39;
+    height: 48rpx;
+    text-align: center;
+    color: white;
+    font-size: 28rpx;
+    line-height: 48rpx;
+}
+
+.body-top-title {
+    font-size: 28rpx;
+    color: #586c94;
+    text-align: right;
+    line-height: 28rpx;
+}
+
+.cashback-detail-btn {
+    color: #586c94;
+    font-size: 28rpx;
+    padding: 0 32rpx;
+    text-align: right;
+    display: inline-block;
+    height: 82rpx;
+    line-height: 82rpx;
+    vertical-align: middle;
+}
+
+.cashback-box {
+    background-color: white;
+    margin: 0 32rpx;
+    border-radius: 4rpx;
+    position: relative;
+}
+
+.cashback-title {
+    position: absolute;
+    top: 30rpx;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #999;
+    height: 56rpx;
+}
+
+.cashback-desc {
+    display: inline-block;
+    line-height: 56rpx;
+    font-size: 56rpx;
+}
+
+.account-desc {
+    padding: 32rpx 48rpx;
+    background-color: #fdfdfd;
+}
+
+.account-title {
+    height: 56rpx;
+    line-height: 56rpx;
+    font-size: 28rpx;
+    color: #333;
+}
+
+.money-icon {
+    font-size: 50rpx;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 50rpx;
+    height: 50rpx;
+}
+
+.money-input-box {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.money-input {
+    margin-left: 10rpx;
+    font-size: 80rpx;
+    height: 95rpx;
+    padding-bottom: 10rpx;
+    color: #333;
+}
+
+.cashback-tip {
+    font-size: 26rpx;
+    color: #999;
+    margin-top: 32rpx;
+}
+
+.all-cashback-btn {
+    color: #586c94;
+    font-size: 26rpx;
+}
+
+.cashback-button {
+    font-size: 32rpx;
+    margin-top: 32rpx;
+}
+
+.cashback-date-tip {
+    display: block;
+    font-size: 26rpx;
+    color: #999;
+    text-align: center;
+    margin-top: 24rpx;
+}
+
+.bottom-tips {
+    width: 75%;
+    margin: 0 auto;
+    line-height: 44rpx;
+    font-size: 28rpx;
+    text-align: center;
+    border-top: 2rpx solid #e4e4e4;
+    margin-top: 64rpx;
+}
+
+.tips-content {
+    position: relative;
+    top: -22rpx;
+    padding: 16rpx;
+    background-color: #f1f1f1;
+    color: #ccc;
+}
+
+.ad-cell {
+    background-color: white;
+    margin: 0 32rpx;
+    padding: 20rpx;
+    box-shadow: 0 0 5rpx rgba(83,85,90,0.2);
+    color: #333;
+}
+
+.ad-card-image {
+    width: 100rpx;
+    height: 100rpx;
+    display: block;
+}
+
+.ad-card-btn-cell {
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.ad-card-btn {
+    display: inline-block;
+    border-radius: 10rpx;
+    color: #eac64f;
+    font-size: 30rpx;
+    border: 3rpx solid #eac64f;
+    height: 64rpx;
+    line-height: 64rpx;
+    padding: 0 20rpx;
+}
+
+.ad-card-text-cell {
+    padding: 0 20rpx;
+}
+
+.ad-card-text-top {
+    font-size: 34rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    color: #333;
+    overflow: hidden;
+}
+
+.ad-card-text-bottom {
+    font-size: 30rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    color: #ccc;
+    overflow: hidden;
+}
+
+.ad-image {
+    width: 100%;
+    display: block;
+    min-height: 100rpx;
+}
+
+.ad-text-cell {
+    padding: 0 16rpx 16rpx 16rpx;
+    text-align: center;
+}
+
+.ad-text-content {
+    display: inline-block;
+}
+
+.ad-text-image {
+    width: 32rpx;
+    height: 32rpx;
+    display: inline-block;
+    margin-right: 12rpx;
+    vertical-align: middle;
+}
+
+.ad-text {
+    color: #576a95;
+    font-weight: 400;
+    font-size: 30rpx;
+    vertical-align: middle;
+}
+
+.ad-text-right-image {
+    margin-left: 2rpx;
+    width: 32rpx;
+    height: 32rpx;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.foot-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30rpx;
+}
+
+.contact::after {
+    border: 0;
+}
+
+.contact {
+    background-color: transparent;
+    color: #586c94!important;
+    opacity: 0.9;
+    font-size: 26rpx!important;
+    display: flex;
+    vertical-align: middle;
+    color: #586c94;
+    border: 0;
+    margin: 0 0 0 16rpx;
+    padding: 0;
+    background: none;
+    padding-left: 0!important;
+}
+
+.foot2 {
+    padding: 0;
+}
+
+.line {
+    height: 26rpx;
+    width: 1rpx;
+    background: #d9d9d9;
+    display: flex;
+}
+
+.go-index {
+    padding: 7rpx 0;
+    display: inline-block;
+    display: -webkit-flex;
+    display: flex;
+    margin-right: 16rpx;
+}
+
+.qa-btn {
+    padding: 7rpx 0;
+    margin: 0 16rpx;
+}

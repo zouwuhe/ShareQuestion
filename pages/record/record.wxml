@@ -1,0 +1,108 @@
+<view class="navbar">
+    <text bindtap="navbarTap" class="item {{currentTab==index?'active':''}}" data-idx="{{index}}" wx:for="{{navbar}}" wx:key="unique">{{item}}</text>
+</view>
+<view class="navbar-div">
+    <swiper bindchange="swiperChange" current="{{currentTab}}" style="height: 100%;">
+        <swiper-item>
+            <scroll-view scrollY="true" style="height: 100%;">
+                <view class="content-container">
+                    <view class="content-body">
+                        <view class="main-content">
+                            <image class="avatar" mode="aspectFill" src="{{avatar}}"></image>
+                            <view class="content-text">
+                                <text class="userName" style="color: #586c94;">{{name}}</text> 共发出</view>
+                            <view class="weui-flex overview">
+                                <view class="weui-flex__item">
+                                    <text class="title">金额 (元)</text>
+                                    <text class="content">{{amount_send}}</text>
+                                </view>
+                                <view class="weui-flex__item">
+                                    <text class="title">数量 (个)</text>
+                                    <text class="content">{{num_send}}</text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="record-container">
+                            <view catchlongtap="bindDeleteTap" catchtap="bindPackTap" class="cell" data-idx="{{dat.redpackNo}}" style="{{dat.id==data_send.length-1?'border:0rpx;':''}}" wx:for="{{data_send}}" wx:for-item="dat" wx:key="redpackNo">
+                                <view class="item item-info">
+                                    <view class="text">
+                                        <view class="name" style="">答题红包-答对{{dat.qaNum-dat.limitWrongTimes}}题可抢</view>
+                                        <view class="time">{{dat.createTime}}</view>
+                                    </view>
+                                </view>
+                                <view class="item">
+                                    <view class="text">
+                                        <view class="amount">{{dat.totalAmount}} 元</view>
+                                        <view class="tips">
+                                            <text style="{{dat.redpackStatus==2?'color: #576b95':''}}">{{dat.redpackStatus==2?'领取中':dat.redpackStatus==3?'已抢完':dat.redpackStatus==4?'已过期':''}}</text> {{dat.grabNum}}/{{dat.totalNum}}</view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view style="width:100%; text-align:center; margin-top:64rpx;">
+                        <navigator class="page-foot" hoverClass="none" openType="reLaunch" style="padding-bottom: 18rpx; display:inline-block;" url="/pages/index/index" wx:if="{{show===1}}">
+                            <view class="foot2">返回首页</view>
+                        </navigator>
+                        <view style="width:1px; height:28rpx; border-left:1px solid #d9d9d9; display:inline-block; margin:0 15rpx; vertical-align:middle;" wx:if="{{show===1}}"></view>
+                        <view bindtap="bindTapHelp" class="foot2 page-foot" style="padding-top:0rpx; display:inline-block;">常见问题</view>
+                    </view>
+                </view>
+            </scroll-view>
+        </swiper-item>
+        <swiper-item>
+            <scroll-view scrollY="true" style="height: 100%;">
+                <view class="content-container">
+                    <view class="content-body">
+                        <view class="main-content">
+                            <image class="avatar" mode="aspectFill" src="{{avatar}}"></image>
+                            <view class="content-text">
+                                <text class="userName" style="color: #586c94;">{{name}}</text> 共收到</view>
+                            <view class="weui-flex overview">
+                                <view class="weui-flex__item">
+                                    <text class="title">金额 (元)</text>
+                                    <text class="content">{{amount_recv}}</text>
+                                </view>
+                                <view class="weui-flex__item">
+                                    <text class="title">数量 (个)</text>
+                                    <text class="content">{{num_recv}}</text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="" style="background-color: #fff;">
+                            <view bindtap="bindPackTap" class="cell" data-idx="{{dat.redpackNo}}" style="{{dat.id==data_recv.length-1?'border: 0rpx;':''}}" wx:for="{{data_recv}}" wx:for-item="dat" wx:key="redpackNo">
+                                <view class="item item-info">
+                                    <view class="text">
+                                        <image class="list-avatar" src="{{dat.avatarUrl}}"></image>
+                                        <view style="display:inline-block;">
+                                            <view class="name">答题红包-来自{{dat.nickName}}</view>
+                                            <view class="time">{{dat.createTime}}</view>
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="item">
+                                    <view class="text">
+                                        <view class="tips">{{dat.tips}}</view>
+                                        <view class="amount">{{dat.amount>0?dat.amount+' 元':'失败'}}</view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view style="width:100%; text-align:center; margin-top:64rpx;">
+                        <navigator class="page-foot" hoverClass="none" openType="reLaunch" style="padding-bottom: 18rpx; display:inline-block;" url="/pages/index/index" wx:if="{{show===1}}">
+                            <view class="foot2">返回首页</view>
+                        </navigator>
+                        <view style="width:1px; height:28rpx; border-left:1px solid #d9d9d9; display:inline-block; margin:0 15rpx; vertical-align:middle;" wx:if="{{show===1}}"></view>
+                        <view bindtap="bindTapHelp" class="foot2 page-foot" style="padding-top:0rpx; display:inline-block;">常见问题</view>
+                    </view>
+                </view>
+            </scroll-view>
+        </swiper-item>
+    </swiper>
+</view>
+<modal bindcancel="bindCancelTap" bindconfirm="confirmDeleteTap" cancelText="取消" confirmText="确定" hidden="{{!confirmDelete}}" title="确认删除">
+    <view>{{contentConfirm}}</view>
+    <view style="margin-top:10px;">未领取的金额将稍后退回余额</view>
+</modal>
+<auth bindauthevent="bindAuthEvent" needAuth="{{needAuth}}"></auth>

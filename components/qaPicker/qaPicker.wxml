@@ -1,0 +1,27 @@
+<view catchtap="catchtap" catchtouchmove="catchtap" class="picker-bg" wx:if="{{show}}"></view>
+<view class="picker-container" style="bottom:{{show?0:'-460rpx;'}}">
+    <view>
+        <view class="picker-con">
+            <view bindtap="cancel" style="margin-left: 24rpx;color: #999;font-size: 32rpx;">取消</view>
+            <view bindtap="confirm" style="margin-right: 24rpx;color: #00c200;font-size: 32rpx;">确定</view>
+        </view>
+        <picker-view bindchange="bindChoose" class="picker-view" indicatorStyle="height: 60rpx;" style="width: 100%; height: 400rpx;background:white;" value="{{qa.answer?qa.answer:[0]}}" wx:if="{{qa.type=='normal'&&qa.options.length>4&&show}}">
+            <picker-view-column>
+                <view style="line-height: 60rpx;text-align:center" wx:for="{{qa.options}}">{{item}}</view>
+            </picker-view-column>
+        </picker-view>
+        <picker-view bindchange="bindChangeRange" class="picker-view" indicatorStyle="height: 60rpx;" style="width: 100%; height: 400rpx;background:white;" value="{{rangeCur}}" wx:if="{{qa.type=='range'&&show}}">
+            <picker-view-column wx:for="{{rangeOption}}">
+                <view style="line-height: 60rpx;text-align:center" wx:for="{{item.option}}" wx:for-item="option">{{option}}{{item.unit}}</view>
+            </picker-view-column>
+        </picker-view>
+        <picker-view bindchange="bindChangeProvince" class="picker-view" indicatorStyle="height: 60rpx;" style="width: 100%; height: 400rpx;background:white;" value="{{qa.answer}}" wx:if="{{qa.type=='location'&&show}}">
+            <picker-view-column>
+                <view style="line-height: 60rpx;text-align:center" wx:for="{{provinces}}">{{item}}</view>
+            </picker-view-column>
+            <picker-view-column>
+                <view style="line-height: 60rpx;text-align:center" wx:for="{{citys}}">{{item.citysName}}</view>
+            </picker-view-column>
+        </picker-view>
+    </view>
+</view>

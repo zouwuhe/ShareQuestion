@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "qa-picker": "../qaPicker/qaPicker"
+    }
+}

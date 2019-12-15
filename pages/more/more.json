@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "我最懂你 - 更多好玩",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#d85940",
+    "usingComponents": {
+        "auth": "../../components/authorization/authorization",
+        "navbar": "../../components/navBar/navBar"
+    }
+}

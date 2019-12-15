@@ -1,0 +1,35 @@
+<button bindgetuserinfo="bindgetuserinfo" class="basic-container" openType="getUserInfo" wx:if="{{needAuth}}">
+    <view class="basic-msg-box">
+        <view class="basic-avatar">
+            <image src="../../images/logo.jpg"></image>
+        </view>
+        <view class="basic-title">微信红包新玩法</view>
+        <view class="basic-tips">每日不定期发放红包福利</view>
+        <view>{{failInfo}}</view>
+    </view>
+    <view class="bottom">
+        <button class="auth-button" id="basic-btn">
+            <image mode="widthFix" src="../../images/more_fun_botton.jpg" style="width: 100%;"></image>
+        </button>
+    </view>
+</button>
+<button bindcontact="bindContact" class="basic-contact" openType="contact" sessionFrom="redpack-userinfo-auth" wx:if="{{needAuth}}">
+    联系客服
+</button>
+<view class="card-container" wx:if="{{!needAuth}}">
+    <view bindtap="bindTapAd" class="card-item" data-index="{{index}}" wx:for="{{adList}}" wx:key="card-item">
+        <image class="card-icon" mode="aspectFill" src="{{item.ad_image}}"></image>
+        <view class="card-content">
+            <view class="title">{{item.ad_title}}</view>
+            <view class="description">{{item.ad_desc}}</view>
+        </view>
+        <view class="card-right" wx:if="{{item.ad_btn_text}}">
+            {{item.ad_btn_text}}
+        </view>
+    </view>
+</view>
+<button animation="{{animationData}}" bindcontact="bindContact" class="contact-container" openType="contact" sessionFrom="{{sessionFrom}}" wx:if="{{contactButton}}">
+    <image class="contact-icon" mode="aspectFit" src="../../images/more_tip.png"></image>
+    <view class="contact-desc">{{contactButton.tips}}</view>
+    <view class="contact-right">{{contactButton.btnText}}</view>
+</button>

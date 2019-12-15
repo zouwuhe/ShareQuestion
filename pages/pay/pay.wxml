@@ -1,0 +1,70 @@
+<image mode="widthFix" src="../../images/home_bg.jpg" style="width: 100%;position:absolute;z-index: -1"></image>
+<view class="container" hidden="{{hideContainer}}">
+    <view class="bg-box">
+        <image class="bg" src="../../images/set_board.png"></image>
+        <view style="padding: 8rpx 30rpx 60rpx;">
+            <view class="invalid-hint" hidden="{{!invalidInput}}">{{invalidHint}}</view>
+        </view>
+        <form bindsubmit="bindPayTap" reportSubmit="true">
+            <view class="error-tip" hidden="{{!showError}}">{{errorTip}}</view>
+            <view class="form-container">
+                <view class="weui-flex form-item">
+                    <view class="form-item-label fee-label" style="display:flex;align-items:center;">红包金额</view>
+                    <view class="form-item-content form-item-label fee-options-container" style="justify-content:flex-end;padding: 0;">
+                        <input bindinput="bindAmountInput" class="form-item-input " maxlength="7" placeholder="填写红包总金额" placeholderClass="placeholder-text" type="digit" value="{{inputAmount}}"></input>
+                        <view>元</view>
+                    </view>
+                </view>
+                <view class="horizontal-separator"></view>
+                <view class="weui-flex form-item">
+                    <view class="form-item-label quantity-label">红包个数</view>
+                    <view class="form-item-content form-item-label fee-options-container" style="justify-content:flex-end;padding: 0;">
+                        <input bindinput="bindNumberInput" class="form-item-input" cursorSpacing="10" focus="{{inputFocus}}" maxlength="{{maxNum}}" placeholder="填写红包个数" placeholderClass="placeholder-text" type="number"></input>
+                        <view>个</view>
+                    </view>
+                </view>
+                <view class="horizontal-separator"></view>
+                <view class="weui-flex form-item">
+                    <view class="form-item-label quantity-label">至少答对</view>
+                    <view style="color: rgba(187,43,15,0.4);font-size: 30rpx;">(共{{qaCount}}题)</view>
+                    <picker bindchange="bindPickerChange" bindtap="bindPickerTap" class="form-item-content" range="{{array}}" style="padding-left:16rpx;letter-spacing:3rpx" value="{{index}}">
+                        <view class="picker form-item-label form-item-content" style="text-align: right; width: 100%;">
+                            <text style="padding-right: 12rpx;">{{array[index]}}</text>题
+                    </view>
+                    </picker>
+                    <image src="../../images/pay/right-arrow.png" style="width: 32rpx; height: 32rpx; line-height: 32rpx;"></image>
+                </view>
+                <view class="horizontal-separator"></view>
+                <view class="weui-flex form-item">
+                    <view class="form-item-label quantity-label">偷看答案</view>
+                    <picker bindchange="bindViewPickerChange" bindtap="bindViewPickerTap" class="form-item-content" range="{{viewArray}}" style="padding-left:16rpx;letter-spacing:3rpx" value="{{viewIndex}}">
+                        <view class="picker form-item-label form-item-content" style="text-align: right; width: 100%;">
+                            <text>{{viewArray[viewIndex]}}</text>
+                        </view>
+                    </picker>
+                    <image src="../../images/pay/right-arrow.png" style="width: 32rpx; height: 32rpx; line-height: 32rpx;"></image>
+                </view>
+                <view class="horizontal-separator"></view>
+            </view>
+            <view class="pay-container">
+                <view catchtap="openRuleTap" class="weui-flex fee-tip">
+                    <text>需支付￥{{serviceFee}}服务费</text>
+                    <text hidden="{{!canUseBalance}}">，优先使用余额￥{{pocket}}</text>
+                </view>
+                <button bindgetuserinfo="bindgetuserinfo" class="new-theme-btn" hoverClass="new-theme-btn__hover" openType="getUserInfo" wx:if="{{needAuth}}">
+                生成答题红包
+            </button>
+                <button class="new-theme-btn" formType="submit" hoverClass="new-theme-btn__hover" wx:else>
+                生成答题红包
+            </button>
+            </view>
+        </form>
+    </view>
+    <view class="tips">
+    未领取的红包，将于24小时后退回小程序余额
+</view>
+</view>
+<modal bindconfirm="agreeTap" confirmText="我知道了" hidden="{{hideRule}}" noCancel="true" title="服务条款">
+    <text>本小程序将收取{{100*rate}}%的服务费；
+使用本小程序则表示您默认同意本服务条款。</text>
+</modal>

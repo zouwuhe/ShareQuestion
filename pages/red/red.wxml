@@ -1,0 +1,189 @@
+<view class="grab-container">
+    <view class="top-container">
+        <view class="deleted-top-container" wx:if="{{isDel}}">
+            <image class="deleted-icon" mode="aspectFit" src="../../images/grab/icon-alert.png"></image>
+            <view class="deleted-tip">答题红包已经不存在了哦</view>
+        </view>
+        <view class="normal-top-container" wx:else>
+            <view class="user-info-container">
+                <image class="avatar" src="{{avatar}}"></image>
+                <view class="nickname">{{nickName}}</view>
+            </view>
+            <view class="desc">{{desc}}</view>
+            <button catchtap="bindPlayPuzzle" class="grab-button" hoverClass="grab-button-hover" wx:if="{{self.amount<0&&redpackStatus==2}}">
+                <image class="start-play-icon" src="../../images/grab/start-play.png"></image>
+                <block wx:if="{{isBeta}}">开始找</block>
+                <text wx:else>开始找福利</text>
+            </button>
+            <view class="grab-fee-container" wx:if="{{self.amount>0}}">
+                <text class="my-grab-fee">{{self.amount}}</text>
+                <text class="grab-fee-unit">元</text>
+            </view>
+            <view class="invalid-grab-status" wx:if="{{redpackStatus==3&&self.amount<0}}">
+                <text wx:if="{{isBeta}}">你来晚了，该活动已结束</text>
+                <text wx:else>你来晚了，赏金都被领完了</text>
+            </view>
+            <view class="invalid-grab-status" wx:if="{{redpackStatus==4&&self.amount<0}}">
+                <text>你来晚了，该翻牌PK已过期</text>
+            </view>
+            <view class="game-setting-container" wx:if="{{self.creator==1&&redpackStatus==2}}">
+                <view class="setting-item">
+                    <picker bindchange="bindPickerChange" mode="multiSelector" range="{{diffOptions}}" rangeKey="label" value="{{diffValue}}">
+                        <view class="setting-item-content">
+                            <image class="setting-item-icon" src="../../images/share/limit_time.png"></image>
+                            <text class="setting-item-label">难度设置</text>
+                        </view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+        <view class="function-container">
+            <view catchtap="bindCashbackTap" class="function-item" hidden="{{isBeta}}">
+                <image class="function-icon" src="../../images/grab/withdraw.png"></image>
+                <text class="function-desc">去提现</text>
+            </view>
+            <view catchtap="bindPayTap" class="function-item">
+                <image class="function-icon" src="../../images/grab/packet.png"></image>
+                <text class="function-desc">{{self.creator==1?'再发一个':'我也发一个'}}</text>
+            </view>
+            <view catchtap="bindShareTap" class="function-item" style="display:{{redpackStatus!=-1&&shareWay==1&&!isBeta?'inline-block':'none'}};" wx:if="{{!isDel}}">
+                <image class="function-icon" src="../../images/grab/share.png"></image>
+                <text class="function-desc">去转发</text>
+            </view>
+            <view bindtap="bindDirectShareTap" class="function-item" style="display:{{redpackStatus!=-1&&shareWay==0||isBeta?'inline-block':'none'}};" wx:if="{{!isDel}}">
+                <image src="../../images/grab/share.png" style="width:32rpx; height:32rpx; margin-right: 5rpx; vertical-align:middle;"></image>
+                <button openType="share" plain="true" size="mini" style="font-size:32rpx !important; padding:0; height:36rpx; line-height:36rpx; vertical-align:middle;color:white; border:0;">去转发</button>
+            </view>
+        </view>
+    </view>
+    <view class="grabber-container">
+        <view class="deleted-bottom-container" wx:if="{{isDel}}">
+            <view bindtap="bindTapQuestion" class="common-question">常见问题</view>
+        </view>
+        <view class="grabber-list" wx:else>
+            <view class="grabber-list-header" hidden="{{isBeta}}">
+                <view class="weui-flex__item list-header-left">
+                    <text>已领取{{takeNum}}/{{packNum}}个</text>
+                    <text wx:if="{{self.creator==1&&(redpackStatus==2||redpackStatus==1)}}">，共{{remainAmount}}/{{totalAmount}}元</text>
+                    <text wx:if="{{redpackStatus==3||redpackStatus==4}}">，共{{totalAmount}}元</text>
+                    <text wx:if="{{self.creator==1&&redpackStatus==4&&refundAmount>0}}">，已退回{{refundAmount}}元</text>
+                </view>
+                <view catchtap="bindReportTap" class="report-link">投诉</view>
+            </view>
+            <view bindtap="bindTapAd" class="ad-container" wx:if="{{adStatus==1&&!isBeta}}">
+                <image class="ad-image" mode="widthFix" src="{{ad.adImage}}"></image>
+                <text class="ad-desc" wx:if="{{ad.adDesc&&ad.adDesc!=''}}">{{ad.adDesc}}</text>
+            </view>
+            <view class="section-bar-container" wx:if="{{showSectionBar}}">
+                <view bindtap="bindSwitchSection" class="section-bar-item {{currentSection==item.index?'selected-bar-item':''}}" data-index="{{item.index}}" style="width: {{sectionBarWidth}}rpx" wx:for="{{sectionContents}}" wx:key="section-bar-item">{{item.name}}({{item.number}})</view>
+            </view>
+            <swiper bindchange="bindSwiperChange" current="{{currentSection}}" style="height: {{swiperHeight}}rpx">
+                <swiper-item wx:for="{{sectionContents}}" wx:for-item="section" wx:key="swiper-item">
+                    <view class="grabber-cell" wx:for="{{section.items}}" wx:for-item="grabber" wx:key="grabber">
+                        <image catchtap="bindAvatarTap" class="grabber-avatar" data-index="{{index}}" mode="aspectFill" src="{{grabber.avatarUrl}}"></image>
+                        <view class="cell-mid-container">
+                            <view class="cell-mid-top">
+                                <text class="cell-nickname">{{grabber.nickName}}</text>
+                                <image class="cell-gender" src="{{grabber.gender?grabber.gender===1?'../../images/grab/male.png':'../../images/grab/female.png':''}}"></image>
+                            </view>
+                            <view class="cell-mid-bottom">
+                                <view class="puzzle-time">挑战{{grabber.tryTimes}}次</view>
+                                <view class="grab-remark" wx:if="{{grabber.flag==1}}">
+                                    <image class="grab-remark-icon" src="../../images/grab/crown.png"></image>
+                                    <text>火眼金睛</text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="cell-right-container">
+                            <view class="grab-fee" hidden="{{isBeta}}">{{grabber.amount>0?grabber.amount+' 元':''}}</view>
+                            <view class="grab-time">{{grabber.createTime}}</view>
+                        </view>
+                    </view>
+                    <view class="grabber-load-more" wx:if="{{section.loadStatus=='loading'}}">正在加载...</view>
+                </swiper-item>
+            </swiper>
+            <view class="grabber-list-footer" hidden="{{isBeta}}">
+                <view bindtap="bindRecordTap" class="check-record" wx:if="{{show==1&&(self.creator==1||self.amount>0)}}">查看我的记录</view>
+                <view class="refund-tip" hidden="{{self.creator==0||redpackStatus>2}}">未领取的金额，将于24小时后退至小程序余额</view>
+            </view>
+        </view>
+    </view>
+    <image class="preload-cover" src="{{preloadCover}}"></image>
+</view>
+<view class="section-bar-container fixed-section-bar" hidden="{{!showFixedSectionBar}}">
+    <view bindtap="bindSwitchSection" class="section-bar-item {{currentSection==item.index?'selected-bar-item':''}}" data-index="{{item.index}}" style="width: {{sectionBarWidth}}rpx" wx:for="{{sectionContents}}" wx:key="section-bar-item">{{item.name}}({{item.number}})</view>
+</view>
+<view class="puzzle-pane" hidden="{{!showPuzzle}}" style="transform: scale({{puzzleScale}}, {{puzzleScale}})">
+    <button class="challenge-button" hidden="{{!showChallenge}}" openType="share" style="right: {{challengeRight}}rpx;">
+        <view class="challenge-container">
+            <image class="challenge-icon" src="../../images/grab/challenge.png"></image>
+            <text style="vertical-align:middle;font-size:28rpx;">挑战好友</text>
+        </view>
+    </button>
+    <view class="try-count-container">
+        <image class="try-count-icon" src="../../images/grab/try-count.png"></image>
+        <text wx:if="{{gameCountLimit>0&&!isStarting&&gameCount>=gameCountLimit}}">已挑战{{gameCount}}次</text>
+        <text wx:else>第{{gameCount}}次挑战</text>
+        <text wx:if="{{gameCountLimit>0}}">，共{{gameCountLimit}}次机会</text>
+    </view>
+    <view class="chips-container" style="width:{{puzzleWidth}}px;height:{{puzzleWidth}}px">
+        <view class="chips-overlay" hidden="{{!showChipsOverlay}}" style="width:{{puzzleWidth}}px;height:{{puzzleWidth}}px">
+            <image class="puzzle-fail-icon" mode="aspectFit" src="../../images/grab/puzzle-fail.png"></image>
+            <view class="game-fail-tip">机会用完啦，邀请好友试试吧</view>
+            <button class="share-game-button" openType="share">挑战好友</button>
+        </view>
+        <view bindlongpress="bindPressChip" bindtap="bindTapChip" class="chip-container {{item.style.shake?'chip-shake':''}} {{item.style.selected?'chip-selected':''}}" data-index="{{index}}" style="width:{{chipWidth}}px;height:{{chipWidth}}px;margin-left:{{item.style.marginLeft}}px;margin-top:{{item.style.marginTop}}px;z-index: {{item.style.zIndex}};transition: margin {{item.style.transformTime}}s ease-in-out;" wx:for="{{chips}}" wx:key="chip">
+            <image class="chip-image chip-back {{item.frontSide?'':'flip'}}" mode="aspectFill" src="{{item.backUrl}}" style="{{item.style.flipAnimation?'transition: transform 0.5s ease-in-out;':''}}"></image>
+            <image class="chip-image chip-front {{item.frontSide?'':'flip'}}" mode="aspectFill" src="{{item.frontUrl}}" style="{{item.style.flipAnimation?'transition: transform 0.5s ease-in-out;':''}}"></image>
+        </view>
+    </view>
+    <view class="puzzle-tip">{{puzzleTip}}</view>
+    <view class="puzzle-bottom-container">
+        <view bindtap="bindClosePuzzle" class="puzzle-bottom-button close-puzzle-button">
+            <image class="puzzle-bottom-icon" src="../../images/grab/sad.png"></image>
+            <text>放弃挑战</text>
+        </view>
+        <view bindtap="bindTryAgain" class="puzzle-bottom-button try-again-button" wx:if="{{showTryAgain}}">
+            <image class="puzzle-bottom-icon" src="../../images/grab/try-again.png"></image>
+            <text>再试一次</text>
+        </view>
+    </view>
+</view>
+<view bindtap="bindCloseRedPacket" class="redpacket-pane" data-type="close" hidden="{{!showRedPacket}}">
+    <view class="redpacket-container" style="transform: scale({{redPacketScale}}, {{redPacketScale}})">
+        <image class="redpacket-bg" src="../../images/grab/redpacket-bg.png"></image>
+        <image catchtap="bindCloseRedPacket" class="redpacket-close" data-type="close" src="../../images/grab/close-outline.png"></image>
+        <image class="redpacket-sender-avatar" src="{{self.avatarUrl}}"></image>
+        <view class="redpacket-desc">{{self.nickName}}</view>
+        <view class="redpacket-tip">恭喜你挑战{{gameCount}}次成功啦</view>
+        <view class="redpacket-opening-container" hidden="{{isBeta}}" wx:if="{{openingRedPacket}}">
+            <image class="redpacket-open" src="../../images/grab/open.png"></image>
+            <text class="redpacket-opening-tip">正在拼命抢赏金...</text>
+        </view>
+        <view class="grab-result-container" hidden="{{isBeta}}" wx:else>
+            <view class="redpacket-fee" wx:if="{{self.amount>0}}">
+                <text style="font-size:88rpx; font-weight:bold;">{{self.amount}}</text>
+                <text style="font-size:36rpx; padding-left:10rpx;">元</text>
+            </view>
+            <view class="grab-error-tip" wx:else>
+                <text>{{grabErrorTip}}</text>
+            </view>
+        </view>
+        <view class="redpacket-send" hidden="{{isBeta}}" wx:if="{{self.amount>=0}}">
+            <view catchtap="bindSendRedPacket" style="display:inline-block;padding:16rpx 32rpx;">
+                <text style="vertical-align:middle;line-height:36rpx; ">{{sendRedPacketDesc}}</text>
+                <image src="../../images/grab/right.png" style="width:32rpx; height:32rpx; margin-left: -2rpx; vertical-align:middle;"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<modal bindconfirm="confirmTap" confirmText="确定" hidden="{{!needAuth}}" noCancel="true" style="z-index:1000;" title="提示">
+    {{content}}
+</modal>
+<modal bindconfirm="closeShareInfoTap" confirmText="我知道了" hidden="{{!showShareInfo}}" noCancel="true" style="z-index:1000;" title="关于转发"></modal>
+<view bindtap="bindGuideTap" class="guide-box" style="position:fixed;right: 20rpx;top: 18rpx;z-index: 1000;overflow:visible;" wx:if="{{guideTip}}">
+    <view class="guide red-guide">
+        <view>点击「添加小程序」</view>
+        <view>快速抢红包</view>
+    </view>
+</view>

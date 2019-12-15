@@ -1,0 +1,12 @@
+<view class="image-container">
+    <view class="image-box" style="padding:32rpx 64rpx">
+        <image bindtap="toPreviewImage" mode="widthFix" src="{{shareImg}}" style="width: 100%;border-radius: 16rpx;"></image>
+    </view>
+    <view class="tips">
+        <view class="tips-text">{{shareTip}}<text bindtap="refreshShareImg" style="padding:0 16rpx;color:#586c94">刷新分享图</text>
+        </view>
+        <view bindtap="saveFile" class="tips-btn">
+            保存到相册
+        </view>
+    </view>
+</view>

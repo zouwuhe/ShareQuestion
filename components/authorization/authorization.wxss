@@ -1,0 +1,61 @@
+.auth-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-modal-container {
+    margin: -64rpx 90rpx 0;
+    background-color: white;
+    border-radius: 8rpx;
+    position: relative;
+}
+
+.auth-modal-title {
+    font-size: 36rpx;
+    color: black;
+    font-weight: bold;
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;
+    border-bottom: 1rpx solid #eaeaea;
+}
+
+.auth-modal-content {
+    margin-top: 42rpx;
+    padding: 0 48rpx;
+    font-size: 34rpx;
+    color: #333;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.auth-modal-content-tips {
+    margin-top: 20rpx;
+    padding: 0 48rpx;
+    font-size: 30rpx;
+    color: #ccc;
+    text-align: left;
+    line-height: 1.4;
+}
+
+.auth-btn-container {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 16rpx;
+    margin-top: 42rpx;
+}
+
+.modal-auth-button {
+    font-size: 34rpx!important;
+    margin: 0 48rpx!important;
+    font-weight: bold;
+}

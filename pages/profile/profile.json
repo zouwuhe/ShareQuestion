@@ -1,0 +1,6 @@
+{
+    "backgroundColor": "#d85940",
+    "usingComponents": {
+        "auth": "/components/authorization/authorization"
+    }
+}

@@ -1,0 +1,50 @@
+page {
+    background: #FFFFFF;
+}
+
+.container {
+}
+
+.record-list {
+    padding-bottom: 20rpx;
+}
+
+.record-item {
+    display: flex;
+    flex-direction: column;
+    padding: 20rpx 30rpx 22rpx;
+    border-bottom: 1rpx solid #E0E0E0;
+}
+
+.bottom,.top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.top {
+    color: #282828;
+}
+
+.name {
+    font-size: 32rpx;
+}
+
+.money {
+    font-size: 32rpx;
+}
+
+.create-time {
+    color: #A5A5A5;
+    font-size: 28rpx;
+}
+
+.cashbask-static {
+    font-size: 28rpx;
+    min-width: 90rpx;
+    text-align: right;
+}
+
+.static-ok {
+    color: #C7A75D;
+}

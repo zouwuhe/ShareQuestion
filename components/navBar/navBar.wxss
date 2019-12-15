@@ -1,0 +1,87 @@
+.status-bar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 100000;
+}
+
+.nav-bar {
+    top: 0;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    align-items: center;
+    z-index: 100000;
+    box-sizing: border-box;
+    font-family: 'Microsoft Yahei','微软雅黑','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    font-size: 32rpx;
+    padding-left: 30rpx;
+}
+
+.home-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60rpx;
+    margin: 0 20rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    box-shadow: 0 0 2rpx rgba(255,255,255,1);
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 30rpx;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.item {
+    width: 75rpx;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.back:after {
+    position: absolute;
+    right: 0rpx;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    width: 2rpx;
+    height: 36rpx;
+    background-color: rgba(255,255,255,0.2);
+    content: " ";
+    z-index: 99;
+}
+
+.icon {
+    width: 32rpx;
+    height: 32rpx;
+}
+
+.status-bar {
+    transition: background 0.5s;
+}
+
+.nav-bar {
+    transition: background 0.5s;
+}
+
+.show-back-btn {
+    width: 65rpx;
+    height: 65rpx;
+    border-radius: 50%;
+}
+
+.show-back-btn .back:after {
+    display: none;
+}
+
+.show-back-btn .item {
+    width: 65rpx;
+}

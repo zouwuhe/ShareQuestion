@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "",
+    "usingComponents": {
+        "qa-picker": "../../components/qaPicker/qaPicker",
+        "qa-checker": "../../components/qaChecker/qaChecker"
+    }
+}

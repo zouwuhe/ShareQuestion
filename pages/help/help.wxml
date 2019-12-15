@@ -1,0 +1,37 @@
+<view class="container">
+    <scroll-view scrollY="true" style="height:100%;">
+        <view class="content-container">
+            <view class="content-body">
+                <view style="padding:0 32rpx;">
+                    <view style="padding-top:16rpx;">
+                        <view style="margin-top: 20rpx; background-color: white;" wx:for="{{data}}" wx:for-item="ques" wx:key="sort">
+                            <view bindtap="tapAction" class="cell" data-idx="{{ques.id}}" style="opacity:{{ques.opa}}">
+                                <view class="weui-flex">
+                                    <view class="weui-flex__item title">{{ques.qestion}}</view>
+                                    <image class="detail" src="../../images/help/detail.png"></image>
+                                </view>
+                            </view>
+                            <view class="content" hidden="{{ques.hid}}">
+                                <text>{{ques.answer}}</text>
+                            </view>
+                        </view>
+                    </view>
+                    <button openType="contact" sessionFrom="help" style="margin-top:48rpx; font-size:32rpx;" type="primary" wx:if="{{showContact}}">
+                        <image src="../../images/help/service.png" style="width:36rpx; height:36rpx; display:inline-block; vertical-align:middle; margin-right:10rpx;"></image>
+                        <text style="display:inline-block; vertical-align:middle;">联系在线客服</text>
+                    </button>
+                    <view bindtap="bindCallTap" class="report-link" wx:if="{{showCallContact}}">点此拨打客服电话</view>
+                </view>
+            </view>
+            <view class="foot-container">
+                <view class="foot2" style="color:#888;">v{{version}}</view>
+                <view style="width:1px; height:28rpx; border-left:1px solid #d9d9d9; display:inline-block; margin:0 15rpx; vertical-align:middle;"></view>
+                <block wx:if="{{protocolSwitch}}">
+                    <view bindtap="bindToRule" class="foot2">用户协议</view>
+                    <view style="width:1px; height:28rpx; border-left:1px solid #d9d9d9; display:inline-block; margin:0 15rpx; vertical-align:middle;"></view>
+                </block>
+                <view bindtap="bindTapReport" class="foot2">投诉</view>
+            </view>
+        </view>
+    </scroll-view>
+</view>

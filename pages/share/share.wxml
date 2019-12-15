@@ -1,0 +1,30 @@
+<view class="container">
+    <view class="share-page" wx:if="{{!needAuth}}">
+        <view class="img-box">
+            <view bindtap="refreshShareImg" class="refresh" wx:if="{{canRefresh}}">
+                <image class="refresh_img {{isLoading?'refresh_img_ani':''}}" src="../../images/refresh.png"></image>
+            </view>
+            <image bindload="imgLoad" bindtap="toPreviewImage" class="shareimg-view" mode="widthFix" src="{{shareImg}}"></image>
+        </view>
+        <view style="margin-top: 56rpx;">
+            <button bindtap="saveFile" class="send-btn" hidden="{{shareWay==0||!showShareBtn}}">
+                <image mode="widthFix" src="../../images/share/ic_share_s.png" style="width: 48rpx;margin-right:15rpx!important;"></image>保存分享图
+      </button>
+            <button class="share-btn" openType="share">
+                <image mode="widthFix" src="../../images/share/ic_zhuanfa_s.png" style="width: 48rpx;margin-right:15rpx!important;"></image>发送给朋友
+      </button>
+        </view>
+        <view catchtap="bindDetailTap" class="weui-flex__item" style="text-align:center; padding-bottom:24rpx;">
+            <text style="display:inline-block; vertical-align:middle; height:30rpx; line-height:30rpx; margin-right:10rpx; color:#888; font-weight:bold; font-size:30rpx;">查看红包详情</text>
+            <image src="../../images/share/forward.png" style="display:inline-block; height:30rpx; width:30rpx; vertical-align:middle;"></image>
+        </view>
+    </view>
+    <view class=" note ">{{note}}</view>
+</view>
+<modal bindconfirm="closeShareInfoTap" confirmText="我知道了" hidden="{{!showShareInfo}}" noCancel="true" style="z-index:1000;" title="关于转发"></modal>
+<view bindtap="bindGuideTap" class="guide-box" style="position:fixed;right: 20rpx;top: 18rpx;z-index: 1000;overflow:visible;" wx:if="{{showGuide}}">
+    <view class="guide red-guide">
+        <view>「添加到我的小程序」,快速查看领取详情</view>
+    </view>
+</view>
+<auth bindauthevent="bindAuthEvent" needAuth="{{needAuth}}"></auth>

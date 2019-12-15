@@ -1,0 +1,32 @@
+<image mode="widthFix" src="../../images/home_bg.jpg" style="width: 100%;position: absolute;top: 0;z-index: -1"></image>
+<view class="order-fixed">
+    <view class="order-num" style="padding-top:44rpx;">
+        <view class="num-info">题目{{currentIndex+1}}/{{MAX_QA_NUM}}</view>
+    </view>
+</view>
+<view class="qa-section">
+    <view class="qa-box">
+        <view class="qa-question">
+            {{currentIndex+1}}.{{qaList[currentIndex].question}}
+        </view>
+        <view class="qa-options">
+            <radio-group bindchange="radioChange" data-idx="{{index}}" wx:if="{{qaList[currentIndex].type=='normal'&&qaList[currentIndex].options.length<=4}}">
+                <label class="radio-label" wx:for="{{qaList[currentIndex].options}}" wx:for-index="idx" wx:for-item="label" wx:key="k">
+                    <radio checked="{{idx+1==item.answer}}" style="display: none" value="{{idx+1}}"></radio>
+                    <view class="radio-qa {{idx+1==qaList[currentIndex].answer?'radio-qa-select':''}}" style="flex: 1;">
+                        {{label}}
+                    </view>
+                </label>
+            </radio-group>
+        </view>
+    </view>
+</view>
+<view bindtap="changeQuestion" class="cancel-box {{ifIphoneX?'cancel-box-x':''}}" id="changeQuestion">
+    <image class="change-btn" mode="aspectFill" src="../../images/ic_shuaxin.png"></image>
+</view>
+<view class="button-area {{ifIphoneX?'bottom-x':''}}">
+    <button bindtap="toQAChecker" id="isSelect-makeqa">已出题目</button>
+    <button bindtap="bindToLibrary" id="GoWorldLib-makeqa">更多题库</button>
+    <button bindtap="bindFinish" id="isSelectEnd-makeqa">结束出题</button>
+</view>
+<qa-picker bindconfirm="bindPickConfirm" qaItem="{{qaItem}}"></qa-picker>

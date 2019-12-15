@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "",
+    "usingComponents": {
+        "auth": "../../components/authorization/authorization"
+    },
+    "backgroundColor": "#f1f1f1"
+}

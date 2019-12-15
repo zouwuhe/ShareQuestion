@@ -1,0 +1,64 @@
+<view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+<view class="msg-box">
+    <view class="user-box">
+        <image bindtap="bindShowUid" class="avatar" src="{{avatarUrl}}"></image>
+        <view class="nickname">{{nickname}}</view>
+    </view>
+</view>
+<view bindtap="bindCashbackTap" class="cash-box content-box">
+    <view class="content-item">
+        <view class="content-left">
+            <view class="icon">
+                <image mode="widthFix" src="images/wallet.png"></image>
+            </view>
+            <view class="title">钱包</view>
+        </view>
+        <view class="content-right">
+            <view class="cash">{{balance}}元</view>
+        </view>
+    </view>
+</view>
+<view bindtap="bindRecordTap" class="record-box content-box">
+    <view class="content-item">
+        <view class="content-left">
+            <view class="icon">
+                <image mode="widthFix" src="images/record.png"></image>
+            </view>
+            <view class="title">我的记录</view>
+        </view>
+        <view class="content-right"></view>
+    </view>
+</view>
+<view class="ques-box content-box">
+    <view bindtap="bindTapHelp" class="content-item">
+        <view class="content-left">
+            <view class="icon">
+                <image mode="widthFix" src="images/question.png"></image>
+            </view>
+            <view class="title">常见问题</view>
+        </view>
+        <view class="content-right"></view>
+    </view>
+    <button bindcontact="bindContact" class="content-item" openType="contact" sessionFrom="{{subscribeSession}}" style="background-color: transparent;margin:0;padding:0;line-height:inherit;border-radius:0" wx:if="{{subscribeCell}}">
+        <view class="content-left">
+            <view class="icon">
+                <image mode="widthFix" src="images/attention.png"></image>
+            </view>
+            <view class="title">{{subscribeCell.text}}</view>
+        </view>
+        <view class="content-right">
+            <view class="news">{{subscribeCell.tips}}</view>
+            <view class="red-cycle" wx:if="{{subscribeCell.isHot}}"></view>
+        </view>
+    </button>
+    <button bindcontact="bindContact" class="content-item" openType="contact" sessionFrom="{{profileSession}}" style="background-color: transparent;margin:0;padding:0;line-height:inherit;border-radius:0">
+        <view class="content-left">
+            <view class="icon">
+                <image mode="widthFix" src="images/servicer.png"></image>
+            </view>
+            <view class="title">联系客服</view>
+        </view>
+        <view class="content-right"></view>
+    </button>
+</view>
+<auth bindauthevent="bindAuthEvent" needAuth="{{needAuth}}"></auth>

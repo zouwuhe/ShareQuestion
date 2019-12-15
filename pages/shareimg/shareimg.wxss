@@ -1,0 +1,32 @@
+.tips {
+    margin-top: 32rpx;
+    padding-bottom: 64rpx;
+}
+
+.tips-text {
+    display: block;
+    text-align: center;
+    color: #888888;
+    font-size: 24rpx;
+}
+
+.tips-btn {
+    width: 360rpx;
+    height: 80rpx;
+    background: #00b830;
+    border: 2rpx solid #008532;
+    border-radius: 40rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20rpx auto 0 auto;
+    color: #ffffff;
+    font-size: 30rpx;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}

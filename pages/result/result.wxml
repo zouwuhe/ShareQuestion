@@ -1,0 +1,295 @@
+<view class="grab-container">
+    <view class="top-container">
+        <view class="deleted-top-container" wx:if="{{isDel}}">
+            <image class="deleted-icon" mode="aspectFit" src="../../images/grab/icon-alert.png"></image>
+            <view class="deleted-tip">该答题红包不存在或已删除</view>
+        </view>
+        <view class="normal-top-container" wx:else>
+            <view class="weui-flex logo-view">
+                <view class="weui-flex logo" style="margin-top:32rpx">
+                    <view bindtap="bindHeadPicTap" style="border-radius:50%;overflow:hidden;border:4rpx solid #fde1b1;width:218rpx;height:218rpx;position:relative">
+                        <image src="../../images/mask.png" style="position:absolute;bottom:{{self.creator==0?bottomHeight:218}}rpx;width:222rpx;                           opacity:0.9;transition:bottom 2.33s;transition-timing-function: ease-out;"></image>
+                        <image class="logo-avatar" mode="aspectFill" src="{{ownerAvatar}}">拼图照片</image>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="amount_container" style="margin-top:24rpx;" wx:if="{{(self.status==null||self.status==-1)&&self.creator==0}}">
+            <view style="font-weight:500;font-size: 32rpx;">
+                <text class="result-name">{{ownerNickName}}</text>发了一个答题红包
+      </view>
+            <view style="font-weight:500;font-size: 42rpx;margin-top: 16rpx;" wx:if="{{redpackStatus<3&&!grabErrorTip}}">
+        答对{{allowCorrectNum}}题可抢
+      </view>
+            <view class="invite-button" wx:if="{{redpackStatus<3&&!grabErrorTip}}">
+                <button catchtap="toChatTap" hoverClass="invite-button-hover" plain="true" size="mini" style="font-size:36rpx !important; padding:0; height:88rpx !important; line-height:88rpx !important;vertical-align:middle;color:rgb(216, 89, 64);border:0;">开始答题抢红包</button>
+            </view>
+        </view>
+        <view class="amount_container" wx:if="{{haveAsk&&!isDel}}">
+            <view style="font-weight:500;font-size: 34rpx;margin-top: 16rpx;" wx:if="{{self.creator==1||self.creator==0&&self.status!=-1&&self.amount!=-1}}">
+                <text class="result-name">{{ownerNickName}}</text>的答题红包
+      </view>
+            <view style="font-weight: 500;font-size: 42rpx;margin-top: 16rpx;" wx:if="{{self.creator==1&&redpackStatus<3}}">
+        答对<text class="result-name">{{allowCorrectNum}}</text>题可抢
+      </view>
+            <view style="font-weight:500;color:white" wx:if="{{self.creator==0&&self.status!=-1&&self.amount==-1}}">
+        你对<text class="result-name">{{ownerNickName}}</text>的了解程度为
+        <text style="font-size:48rpx">{{self.correctRate}}%</text>
+            </view>
+            <view style="font-weight:500;margin-top: 4rpx;margin-bottom: 8rpx;" wx:if="{{self.creator==0&&self.status!=-1&&self.amount!=-1}}">
+        你答对{{self.correctNum}}题，领到
+        </view>
+            <view class="amount" wx:if="{{self.creator==0}}">
+                <view style="margin-top:48rpx;font-size:48rpx;margin-bottom:32rpx;" wx:if="{{grabErrorTip&&redpackStatus<3}}">
+          {{grabErrorTip}}
+        </view>
+                <view style="margin-top:48rpx;font-size:48rpx;margin-bottom:32rpx;" wx:if="{{grabErrorTip&&redpackStatus>=3}}">
+                    <text>{{grabErrorTip}}</text>
+                </view>
+                <view wx:if="{{!grabErrorTip}}">
+                    <text style="font-size:108rpx;font-weight:900;display:inline-block;margin-right: 6rpx;">{{selfAmount}}</text>元
+        </view>
+            </view>
+            <view class="amount" style="margin-top:12rpx" wx:if="{{self.creator==1}}">
+                <view style="margin-top:48rpx;font-size:48rpx;margin-bottom:32rpx;" wx:if="{{grabErrorTip&&redpackStatus<3}}">
+          {{grabErrorTip}}
+        </view>
+                <view style="margin-top:48rpx;font-size:48rpx;margin-bottom:32rpx;" wx:if="{{grabErrorTip&&redpackStatus>=3}}">
+                    <text>{{grabErrorTip}}</text>
+                </view>
+            </view>
+            <view class="invite-button" style="margin-top: 42rpx;" wx:if="{{self.creator==1&&redpackStatus==2}}">
+                <button openType="share" plain="true" size="mini" style="font-size:36rpx !important; padding:0; height:88rpx !important; line-height:88rpx !important;vertical-align:middle;color:rgb(216, 89, 64);border:0;">邀请好友来答题</button>
+            </view>
+        </view>
+        <view class="function-container" wx:if="{{haveAsk}}">
+            <view catchtap="bindCheckQA" class="function-item" wx:if="{{self.creator==0&&self.canViewAnswer!=null&&self.canViewAnswer!=-1}}">
+                <image class="function-icon" src="../../images/grab/packet.png"></image>
+                <text class="function-desc">查看答案</text>
+            </view>
+            <view catchtap="bindCashbackTap" class="function-item" wx:if="{{self.creator==0&&self.amount!=-1}}">
+                <image class="function-icon" src="../../images/grab/withdraw.png"></image>
+                <text class="function-desc">余额提现</text>
+            </view>
+            <view catchtap="bindCheckQA" class="function-item" wx:if="{{self.creator==0&&self.canViewAnswer!=null&&self.canViewAnswer==-1}}">
+                <image class="function-icon" src="../../images/grab/packet.png"></image>
+                <text class="function-desc">查看问题</text>
+            </view>
+            <view bindtap="bindReviewQuestion" class="function-item" style="display:{{redpackStatus!=-1&&self.creator==1?'inline-block':'none'}};">
+                <image class="function-icon" src="../../images/index/icon_eye.png" style="width:33rpx;height:25rpx;"></image>
+                <text class="function-desc">查看答案</text>
+            </view>
+            <view catchtap="bindShareTap" class="function-item" style="display:{{redpackStatus!=-1&&shareWay==1&&!isBeta&&self.creator===1?'inline-block':'none'}};" wx:if="{{!isDel}}">
+                <image class="function-icon" src="../../images/grab/share.png"></image>
+                <text class="function-desc">生成分享图</text>
+            </view>
+            <view catchtap="bindCashbackTap" class="function-item" wx:if="{{self.creator==1&&redpackData.redpackStatus==4}}">
+                <image class="function-icon" src="../../images/grab/withdraw.png"></image>
+                <text class="function-desc">查看余额</text>
+            </view>
+            <view wx:if="{{(self.status==null||self.status==-1)&&self.creator==0&&self.canViewAnswer==null}}">
+                <view catchtap="bindCheckQA" class="function-item" wx:if="{{redpackData.canViewAnswer!=-1}}">
+                    <image class="function-icon" src="../../images/grab/packet.png"></image>
+                    <text class="function-desc">查看答案</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="grabber-container" style="position:absolute;left:0;right:0;">
+        <view class="grabber-list" wx:if="{{!isDel}}">
+            <view class="grabber-list-header">
+                <view class="weui-flex__item list-header-left">
+                    <text>已领取{{takeNum}}/{{packNum}}个</text>
+                    <text wx:if="{{(adStatus==1||self.creator==1)&&(redpackStatus==2||redpackStatus==1)}}">，共{{remainAmount}}/{{totalAmount}}元</text>
+                    <text wx:if="{{redpackStatus==3||redpackStatus==4}}">，共{{totalAmount}}元</text>
+                    <text wx:if="{{self.creator==1&&redpackStatus==4&&refundAmount>0}}">，已退回{{refundAmount}}元</text>
+                </view>
+                <view catchtap="bindReportTap" class="report-link">投诉</view>
+            </view>
+            <view bindtap="bindTapAd" class="ad-container" wx:if="{{adStatus==1}}">
+                <navigator appId="{{ad.appId}}" path="{{ad.path}}" target="miniProgram" wx:if="{{supporNavigator&&ad.action==='weapp'&&!!ad.appId}}">
+                    <image class="ad-image" mode="widthFix" src="{{ad.adImage}}"></image>
+                    <text class="ad-desc" wx:if="{{ad.adDesc&&ad.adDesc!=''}}">{{ad.adDesc}}</text>
+                </navigator>
+                <block wx:else>
+                    <image class="ad-image" mode="widthFix" src="{{ad.adImage}}"></image>
+                    <text class="ad-desc" wx:if="{{ad.adDesc&&ad.adDesc!=''}}">{{ad.adDesc}}</text>
+                </block>
+            </view>
+            <view style="position:absolute;left:0;right:0;padding-bottom: 170rpx;" wx:if="{{sectionContents[0].number||sectionContents[1].number}}">
+                <view class="navbar">
+                    <text bindtap="navbarTap" class="item {{currentTab==index?'active':''}}" data-idx="{{index}}" wx:for="{{navbar}}" wx:key="unique">{{item}}({{sectionContents[index].number}})</text>
+                </view>
+                <view class="navbar-div">
+                    <swiper bindchange="swiperChange" current="{{currentTab}}" style="height:{{navHeight}}rpx">
+                        <swiper-item wx:for="{{sectionContents}}" wx:for-item="section" wx:key="swiper-item">
+                            <view>
+                                <view bindtap="bindCheckUserQA" class="grabber-cell" data-item="{{grabber}}" wx:for="{{section.items}}" wx:for-item="grabber" wx:key="grabber">
+                                    <image class="grabber-avatar" data-index="{{index}}" mode="aspectFill" src="{{grabber.avatarUrl}}"></image>
+                                    <view class="cell-mid-container">
+                                        <view class="cell-mid-top">
+                                            <text class="cell-nickname">{{grabber.nickName}}</text>
+                                            <image class="cell-gender" src="{{grabber.gender?grabber.gender===1?'../../images/grab/male.png':'../../images/grab/female.png':''}}"></image>
+                                        </view>
+                                        <view class="cell-mid-bottom">
+                                            <view class="puzzle-time">熟悉度{{grabber.correctRate}}%</view>
+                                        </view>
+                                    </view>
+                                    <view class="cell-right-container">
+                                        <view class="grab-fee" wx:if="{{grabber.amount!='-1.00'&&grabber.amount!='0.00'}}">
+                        {{grabber.amount}} 元 </view>
+                                        <view class="grab-time">{{grabber.createTime}}</view>
+                                    </view>
+                                </view>
+                                <view class="grabber-list-footer" style="margin-top:{{footMarginTop}}rpx">
+                                    <view class="grabber-load-more" wx:if="{{loadStatus=='loading'}}">正在加载...</view>
+                                </view>
+                            </view>
+                        </swiper-item>
+                    </swiper>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view wx:if="{{showTips}}">
+    <view class="shade">
+        <view class="shade-content" style="transform: scale({{redPacketScale}}, {{redPacketScale}})">
+            <view class="redpack" style="position:relative">
+                <image src="../../images/big-red-pack.png" style="display:block;width:100%;height:100%"></image>
+                <view class="red-container" style="position:absolute;top:0;width:100%;height:100%">
+                    <view>
+                        <image class="avatar" mode="aspectFill" src="{{avatar}}"></image>
+                    </view>
+                    <view class="red-title">
+            {{nickName}}
+          </view>
+                    <view class="red-subtitle" wx:if="{{!grabErrorTip}}">
+            {{self.amount>0?'恭喜':''}}你答对了 {{correctNum}} 题
+          </view>
+                    <view style="color:#ffe2b1;text-align:center;margin-top:50rpx">
+                        <view wx:if="{{openingRedPacket}}">
+              正在疯狂抢红包中...
+            </view>
+                        <view wx:if="{{!openingRedPacket}}">
+                            <view style="line-height:1;font-size:{{grabErrorTip&&grabErrorTip.length>9?38:48}}rpx;margin-top: 50rpx;" wx:if="{{self.amount<=0}}">
+                {{grabErrorTip||'系统繁忙，请重试'}}
+              </view>
+                            <view wx:else>
+                                <text style="font-size:96rpx;line-height:1; font-weight: bold;">{{self.amount}}</text>
+                元
+              </view>
+                        </view>
+                        <view style="margin-top:120rpx">
+                            <view bindtap="bindTapPay" class="non-button" style="margin-top:64rpx" wx:if="{{redpackStatus>2}}">
+                                <view style="font-size:32rpx; display: flex; line-height: 40rpx; align-items: center; justify-content: center;">
+                                    <text>我也要发答题红包</text>
+                                    <image mode="aspectFit" src="../../images/grab/right.png" style="width: 36rpx; height: 36rpx; margin-left: 0;"></image>
+                                </view>
+                            </view>
+                            <button class="non-button" openType="share" style="margin-top:64rpx" wx:else>
+                                <view style="font-size:32rpx; display: flex; line-height: 40rpx; align-items: center; justify-content: center;">
+                                    <text>邀请好友来玩</text>
+                                    <image mode="aspectFit" src="../../images/grab/right.png" style="width: 36rpx; height: 36rpx; margin-left: 0;"></image>
+                                </view>
+                            </button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view bindtap="close" style="padding: 20rpx;position:absolute;top:0;right: 0;">
+                <image src="../../images/close.png" style="width:24rpx;height:24rpx;top: 0;display: block;"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="puzzle-pane" hidden="{{!showPuzzle}}" style="transform: scale({{puzzleScale}}, {{puzzleScale}})">
+    <button class="challenge-button" hidden="{{!showChallenge}}" openType="share" style="right: {{challengeRight}}rpx;">
+        <view class="challenge-container">
+            <image class="challenge-icon" src="../../images/grab/challenge.png"></image>
+            <text style="vertical-align:middle;font-size:28rpx;">挑战好友</text>
+        </view>
+    </button>
+    <view class="elapse-time">
+        <image class="puzzle-time-icon" src="../../images/grab/time.png"></image>
+        <view>用时
+      <text class="fixed-width">{{puzzleSeconds}}</text>秒</view>
+        <view wx:if="{{puzzleTimeLimit>0}}">
+      , 剩余
+      <text class="fixed-width">{{puzzleTimeLimit-puzzleSeconds}}</text>秒
+    </view>
+    </view>
+    <view class="chips-container" style="width:{{puzzleWidth}}px;height:{{puzzleWidth}}px">
+        <view class="chips-overlay" hidden="{{!showChipsOverlay}}" style="width:{{puzzleWidth}}px;height:{{puzzleWidth}}px">
+            <image class="puzzle-fail-icon" mode="aspectFit" src="../../images/grab/puzzle-fail.png"></image>
+            <view class="try-again-tip">时间到，挑战失败!</view>
+            <view bindtap="bindTryAgain" class="try-again-button">
+                <text>再试一次</text>
+            </view>
+        </view>
+        <image bindload="bindLoadChip" bindtap="bindTapChip" class="chip {{shadowList[index]}}" data-index="{{index}}" src="{{item.url}}" style="width:{{chipWidth}}px;height:{{chipWidth}}px;margin-left:{{item.style.marginLeft}}px;margin-top:{{item.style.marginTop}}px;z-index: {{item.style.zIndex}};" wx:if="{{item.url}}" wx:for="{{chips}}" wx:key="chip"></image>
+        <view bindtap="bindTapChip" class="chip-selected" data-index="{{index}}" style="width:{{chipWidth}}px;height:{{chipWidth}}px;margin-left:{{item.style.marginLeft}}px;margin-top:{{item.style.marginTop}}px;" wx:if="{{chipShadows[index]!=''}}" wx:for="{{chips}}" wx:key="chip-select"></view>
+    </view>
+    <view class="puzzle-tip" hidden="{{showChipsOverlay}}">点击图块交换位置，拼图成功自动领取赏金</view>
+    <view class="puzzle-bottom-container">
+        <view bindtap="bindClosePuzzle" class="puzzle-bottom-button close-puzzle-button">
+            <image class="puzzle-bottom-icon" src="../../images/grab/sad.png"></image>
+            <text>放弃挑战</text>
+        </view>
+    </view>
+</view>
+<view bindtap="bindCloseRedPacket" class="redpacket-pane" data-type="close" hidden="{{!showRedPacket}}">
+    <view class="redpacket-container" style="transform: scale({{redPacketScale}}, {{redPacketScale}})">
+        <image class="redpacket-bg" src="../../images/grab/redpacket-bg.png"></image>
+        <image catchtap="bindCloseRedPacket" class="redpacket-close" data-type="close" src="../../images/grab/close-outline.png"></image>
+        <image class="redpacket-sender-avatar" src="{{self.avatarUrl}}"></image>
+        <view class="redpacket-desc">{{self.nickName}}</view>
+        <view class="redpacket-tip">恭喜你完成了拼图，用时{{puzzleSeconds}}秒</view>
+        <view class="redpacket-opening-container" hidden="{{isBeta}}" wx:if="{{openingRedPacket}}">
+            <image class="redpacket-open" src="../../images/grab/open.png"></image>
+            <text class="redpacket-opening-tip">正在拼命抢赏金...</text>
+        </view>
+        <view class="grab-result-container" hidden="{{isBeta}}" wx:else>
+            <view class="redpacket-fee" wx:if="{{self.amount>0}}">
+                <text style="font-size:88rpx; font-weight:bold;">{{self.amount}}</text>
+                <text style="font-size:36rpx; padding-left:10rpx;">元</text>
+            </view>
+            <view class="grab-error-tip" wx:else>
+                <text>{{grabErrorTip}}</text>
+            </view>
+        </view>
+        <view class="redpacket-send" hidden="{{isBeta}}" wx:if="{{self.amount>=0}}">
+            <view catchtap="bindSendRedPacket" style="display:inline-block;padding:16rpx 32rpx;">
+                <text style="vertical-align:middle;line-height:36rpx; ">{{sendRedPacketDesc}}</text>
+                <image src="../../images/grab/right.png" style="width:32rpx; height:32rpx; margin-left: -2rpx; vertical-align:middle;"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="hover-btns" style="padding-bottom: {{ifIphoneX?'24rpx':'0'}}" wx:if="{{bottomButtons.length>0}}">
+    <block wx:for="{{bottomButtons}}">
+        <button hoverClass="hover-btn" openType="share" plain="true" wx:if="{{item.action=='share'}}">
+            <image mode="aspectFit" src="{{item.icon}}"></image>
+            <text>{{item.text}}</text>
+        </button>
+        <button bindtap="bindPayTap" data-index="{{index}}" hoverClass="hover-btn" plain="true" wx:else>
+            <image mode="aspectFit" src="{{item.icon}}" style="width: 42rpx;"></image>
+            <text>{{item.text}}</text>
+        </button>
+    </block>
+</view>
+<modal bindconfirm="closeShareInfoTap" confirmText="我知道了" hidden="{{!showShareInfo}}" noCancel="true" style="z-index:1000;" title="关于转发"></modal>
+<auth bindauthevent="bindAuthEvent" needAuth="{{needAuth}}"></auth>
+<view bindtap="bindGuideTap" class="guide-box" style="position:fixed;right: 20rpx;top: 18rpx;z-index: 1000;overflow:visible; text-align: center;" wx:if="{{showGuide}}">
+    <view class="guide red-guide">
+        <view>点击「添加小程序」</view>
+        <view>快速抢红包</view>
+    </view>
+</view>
+<view class="redPack-tip" style="right: {{right}}px;" wx:if="{{showMoreButton&&!showGuide}}">
+    <image class="right2-ic" mode="widthFix" src="../../images/right2_ic.png"></image>
+    <image bindtap="bindIconTap" class="right1_ic {{buttonInfo.doAnimation?'ic_animation':''}}" mode="widthFix" src="{{buttonInfo.image}}" wx:if="{{buttonInfo.action!='contact'}}"></image>
+    <button class="right1_ic right1_ic-btn {{buttonInfo.doAnimation?'ic_animation':''}}" openType="contact" plain="{{true}}" sendMessageImg="{{buttonInfo.path}}" sendMessageTitle=" " sessionFrom="{{buttonInfo.sessionFrom||'more-button'}}" showMessageCard="{{true}}" wx:else>
+        <image class="contact-right1_ic" mode="widthFix" src="{{buttonInfo.image}}"></image>
+    </button>
+</view>

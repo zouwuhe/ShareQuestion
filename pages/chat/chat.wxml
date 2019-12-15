@@ -1,0 +1,111 @@
+<view class="container">
+    <view class="basic-container" wx:if="{{showBasic}}">
+        <view class="basic-msg-box">
+            <view class="basic-avatar">
+                <image src="{{basicData.avatarUrl}}"></image>
+            </view>
+            <view class="basic-nickname">{{basicData.nickName}}</view>
+            <view class="basic-tips">给你发了一个答题红包</view>
+            <view class="basic-total">总金额</view>
+            <view class="basic-amount-box" style="align-items: center" wx:if="{{!showAmount}}">
+                <view class="basic-amount hide-amount-amount">
+                    <image class="{{item=='.'?'point':'star'}}" src="{{item=='.'?'../../images/img_point.png':'../../images/img_star.png'}}" wx:for="{{basicData.totalAmount}}"></image>
+                </view>
+                <view class="basic-yuan" style="font-size: 64rpx;line-height: 64rpx;margin-left: 8rpx;">元</view>
+            </view>
+            <view class="basic-amount-box" wx:if="{{showAmount}}">
+                <view class="basic-amount">{{basicData.totalAmount}}</view>
+                <view class="basic-yuan">元</view>
+            </view>
+        </view>
+        <view class="bottom" id="basic-bottom">
+            <button bindgetuserinfo="bindgetuserinfo" class="auth-button" id="basic-btn" openType="getUserInfo" wx:if="{{needAuth}}">
+                <image mode="widthFix" src="../../images/pic_ckhb.png" style="width: 100%;"></image>
+            </button>
+            <button bindtap="bindGoAn" class="auth-button" id="basic-btn" wx:else>
+                <image mode="widthFix" src="../../images/pic_ckhb.png" style="width: 100%;"></image>
+            </button>
+            <button bindcontact="bindContact" class="basic-contact" openType="contact" sessionFrom="redpack-userinfo-auth">
+                联系客服
+            </button>
+            <view class="listen-box limit" style="position: relative;bottom: 0;margin-top:12rpx;" wx:if="{{showBasicRecommand&&recommandList.length>0}}">
+                <view class="listen-tips">谁最了解Ta</view>
+                <view class="rec-box" wx:if="{{index<5}}" wx:for="{{recommandList}}" wx:key="{{index}}">
+                    <view class="rec-avatar">
+                        <image bindtap="bindFriendPlay" data-item="{{item}}" src="{{item.avatarUrl}}"></image>
+                    </view>
+                    <view class="rec-amount">{{item.amount}}元</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view hidden="{{showBasic}}" style="padding-top:60rpx;padding-bottom:60rpx;" wx:if="{{redpackStatus===2&&!isDel}}">
+        <view class="chatArea" wx:for="{{showChatList}}" wx:for-index="i">
+            <view>
+                <view class="chatBar" wx:if="{{!goResult}}">
+                    <view class="otherChatPop">
+                        <view class="chatMsg" style="display:block">
+                            <view style="display:flex">
+                                <view class="headshot-view" style="background: {{item.GroupMember.color}}">
+                                    <image class="headshot" mode="aspectFill" src="{{avatarUrl}}"></image>
+                                </view>
+                                <view class="leftTriangle">
+                                    <view></view>
+                                </view>
+                                <view class="content" style="display:flex;align-items:flex-start;flex-direction:column">
+                                    <view style="color:#a75955;font-size:28rpx;padding-top:{{item.picUrl?'16rpx;':'0;'}}font-weight:bold;padding-left:12rpx;">
+                                        {{i+1}}/{{quesNum}}.{{item.question}}
+                                    </view>
+                                    <view style="width:480rpx;">
+                                        <view class="content answerArea">
+                                            <view bindtap="selectAnswer" data-ansNo="{{ansNo}}" data-answer="{{obj}}" data-ques="{{i}}" style="margin-top: -6rpx;" wx:for="{{item.options}}" wx:for-index="ansNo" wx:for-item="obj">
+                                                <view class="{{answerList[i].ansno===ansNo?'answer active':'answer'}}">
+                                                    {{letter[ansNo]}}. {{obj}}
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="space"></view>
+                        </view>
+                    </view>
+                    <view class="myChatPop" wx:if="{{item.isAnser}}">
+                        <view class="chatMsg">
+                            <view class="space"></view>
+                            <view>
+                                <view style="display:flex;justify-content:flex-end;height:100%">
+                                    <view class="content">
+                                        {{answerList[i].answer}}
+                                    </view>
+                                    <view class="rightTriangle">
+                                        <view></view>
+                                    </view>
+                                </view>
+                            </view>
+                            <image class="headshot" mode="aspectFill" src="{{myAvatarUrl}}"></image>
+                        </view>
+                    </view>
+                    <view class="otherChatPop" wx:if="{{item.isAnser}}">
+                        <view class="chatMsg">
+                            <view class="headshot-view" style="background: {{item.GroupMember.color}}">
+                                <image class="headshot" mode="aspectFill" src="{{avatarUrl}}"></image>
+                            </view>
+                            <view>
+                                <view style="display:flex;justify-content:flex-end;height:100%">
+                                    <view class="leftTriangle">
+                                        <view></view>
+                                    </view>
+                                    <view class="content" style="display:flex;justify-content:flex-end;align-items:center;padding: 5rpx 20rpx;">
+                                        {{item.nextQues}}
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="space"></view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

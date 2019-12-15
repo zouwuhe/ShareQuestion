@@ -1,0 +1,15 @@
+<view class="tabbar_box {{ifIphoneX?'iphoneX-height':''}}" style="background-color:{{tabbar.backgroundColor}}">
+    <block wx:for="{{tabbar.list}}" wx:key="{{item.pagePath}}">
+        <navigator class="tabbar_nav" hoverClass="none" openType="navigate" style="color:{{tabbar.selectedColor}}" url="{{item.pagePath}}" wx:if="{{item.isSpecial}}">
+            <view class="special-wrapper">
+                <image class="tabbar_icon" src="{{item.iconPath}}"></image>
+            </view>
+            <image class="special-text-wrapper"></image>
+            <text>{{item.text}}</text>
+        </navigator>
+        <navigator class="tabbar_nav" hoverClass="none" openType="switchTab" style="color:{{item.selected?tabbar.selectedColor:tabbar.color}}" url="{{item.pagePath}}" wx:else>
+            <image class="tabbar_icon" src="{{item.selected?item.selectedIconPath:item.iconPath}}"></image>
+            <text>{{item.text}}</text>
+        </navigator>
+    </block>
+</view>

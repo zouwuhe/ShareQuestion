@@ -1,0 +1,207 @@
+page {
+    background-color: #f5f6f5;
+}
+
+.navbar-div {
+    position: absolute;
+    width: 100%;
+    top: 96rpx;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.navbar {
+    display: flex;
+    background: white;
+}
+
+.navbar .item {
+    position: relative;
+    flex: 1;
+    text-align: center;
+    height: 96rpx;
+    font-size: 32rpx;
+    font-weight: bold;
+    line-height: 96rpx;
+    color: #aaa;
+}
+
+.navbar .item.active {
+    color: #d85940;
+}
+
+.navbar .item.active:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 124rpx;
+    height: 7rpx;
+    background-color: #d85940;
+}
+
+.head-switch-div {
+    display: flex;
+    display: -webkit-box;
+    margin: 16rpx 32rpx -1rpx 32rpx;
+}
+
+.head-switch {
+    flex: 1;
+    -webkit-box-flex: 1;
+    text-align: center;
+}
+
+.head-switch-active {
+    color: limegreen!important;
+}
+
+.head-switch-line-active {
+    background-color: limegreen!important;
+}
+
+.head-switch-text {
+    height: 36rpx;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 30rpx;
+    color: #d8d8d8;
+}
+
+.head-switch-line {
+    margin: 0 auto;
+    margin-top: 14rpx;
+    width: 96rpx;
+    height: 7rpx;
+    background-color: #d8d8d8;
+}
+
+.main-content {
+    padding: 24rpx 32rpx 24rpx 32rpx;
+    text-align: center;
+    background-color: #f5f6f5;
+}
+
+.avatar {
+    width: 120rpx;
+    height: 120rpx;
+    border: #a5a5a7 1rpx solid;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 100%;
+    margin-bottom: 32rpx;
+    margin-top: 12rpx;
+}
+
+.content-text {
+    color: #333;
+    font-size: 30rpx;
+    display: flex;
+    justify-content: center;
+}
+
+.userName {
+    max-width: 380rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    justify-content: left;
+    margin-right: 12rpx;
+}
+
+.cell {
+    display: flex;
+    display: -webkit-box;
+    margin: 0 32rpx;
+    padding: 24rpx 0;
+    border-bottom: 1rpx solid #d9d9d9;
+}
+
+.item-info {
+    -webkit-box-flex: 1;
+    flex: 1;
+}
+
+.page-head-line {
+    margin: 20rpx 32rpx 24rpx 32rpx;
+    height: 2rpx;
+    background-color: #d8d8d8;
+}
+
+.text {
+    height: 76rpx;
+}
+
+.tips {
+    text-align: right;
+    color: #737373;
+    font-size: 28rpx;
+    line-height: 40rpx;
+}
+
+.amount {
+    color: #333;
+    font-size: 28rpx;
+    height: 42rpx;
+    line-height: 40rpx;
+    font-weight: bold;
+    text-align: right;
+}
+
+.name {
+    width: 400rpx;
+    font-size: 30rpx;
+    height: 42rpx;
+    line-height: 40rpx;
+    color: #333;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+
+.time {
+    font-size: 28rpx;
+    height: 42rpx;
+    line-height: 40rpx;
+    color: #737373;
+}
+
+.swiper-item {
+    display: block;
+    height: 150px;
+}
+
+.list-avatar {
+    width: 76rpx;
+    height: 76rpx;
+    border: #a5a5a7 1rpx solid;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 16rpx;
+}
+
+.overview {
+    margin: 48rpx 72rpx;
+}
+
+.record-container {
+    background-color: white;
+}
+
+.weui-flex__item .title {
+    display: block;
+    font-size: 32rpx;
+    color: #999;
+}
+
+.weui-flex__item .content {
+    display: block;
+    font-size: 54rpx;
+    color: #333;
+    font-weight: bold;
+}

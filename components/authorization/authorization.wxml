@@ -1,0 +1,10 @@
+<view class="auth-container" hidden="{{!needAuth}}">
+    <view class="auth-modal-container">
+        <view class="auth-modal-title">授权提示</view>
+        <view class="auth-modal-content">由于需要获取你的头像和昵称，请点击下方按钮进行授权</view>
+        <view class="auth-btn-container">
+            <button bindgetuserinfo="bindgetuserinfo" class="modal-auth-button" openType="getUserInfo" type="primary">去授权</button>
+            <button bindcontact="bindContact" openType="contact" plain="true" sessionFrom="record-userinfo-auth" size="mini" style="margin-top:8rpx;font-size:28rpx !important; padding:0 32rpx; height:74rpx; line-height:74rpx;  vertical-align:middle;color:#586c94; border:0; ">联系客服</button>
+        </view>
+    </view>
+</view>

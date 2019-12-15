@@ -1,0 +1,13 @@
+<view class="status-bar" style="background: {{navColor}}; height: {{statusBarHeight/pixelRate}}rpx;"></view>
+<view class="nav-bar" style="height: {{capsuleHeight/pixelRate}}rpx; top: {{statusBarHeight/pixelRate}}rpx; background: {{navColor}}; color: {{titleColor}}; font-size: {{titleFontSize}}rpx; font-weight: {{titleFontWeight}}; text-align: {{fontAlign}}" wx:if="{{showNavBar}}">
+    <view class="home-container {{showBack&&showHome?'':'show-back-btn'}}" wx:if="{{showHome||showBack}}">
+        <view catch:tap="tapNavBack" class="back item" wx:if="{{showBack}}">
+            <image class="icon" mode="aspectFit" src="/images/all_people/nyhb_ic_back.png"></image>
+        </view>
+        <view bind:tap="tapNavHome" class="home item" wx:if="{{showHome}}">
+            <image class="icon" mode="aspectFit" src="/images/all_people/nyhb_ic_home.png"></image>
+        </view>
+    </view>
+    <view class="title" style="height: {{capsuleHeight/pixelRate}}rpx; line-height: {{capsuleHeight/pixelRate}}rpx">{{navTitle}}</view>
+</view>
+<view hide="{{!showMargin}}" style="padding-bottom: {{(statusBarHeight+capsuleHeight)/pixelRate}}rpx;background: {{navColor}}"></view>
